@@ -1,0 +1,42 @@
+# make sxhkd reload its configuration files
+alt + Escape
+	pkill -USR1 -x sxhkd
+ 
+# quit or restart bspwm
+alt + shift + {q,r}
+	bspc {quit,wm -r}
+ 
+# create a new terminal window or swap the current one to the biggest one in the screen 
+alt + {_, shift + }Return
+	{gnome-terminal, bspc node -s biggest.local}
+ 
+# close or kill a window
+alt + {_,shift + }c
+	bspc node -{k,c}
+ 
+# change the window state
+alt + {t,ctrl + t,l,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+ 
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+super + alt + shift + {h,j,k,l}
+	bspc node -z {left 20 0,bottom 0 -20,top 0 20,right -20 0}
+
+# focus or send a window to the given desktop
+alt + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla,agrave}
+	bspc {desktop -f, node -d} focused:'^{1-9,10}'
+
+super + space
+  rofi -show drun
+
+super + shift + {Left, Right, Up, Down}
+  bspc node -m {west,east, north,south} --follow
+
+{alt,super} + Tab	
+  bspc {node, monitor} --focus next
+
+super + l 
+  i3lock --image $HOME/.config/wallpaper/lock.png --tiling
