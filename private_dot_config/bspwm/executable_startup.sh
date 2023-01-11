@@ -47,5 +47,5 @@ else
 fi
 
 
-feh --bg-center ~/wallpapers/solids/flamingo.png &
+feh --bg-center ~/.config/wallpaper/wall.png &
 ~/.config/polybar/launch.sh
