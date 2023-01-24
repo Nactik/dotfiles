@@ -9,6 +9,8 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 999
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 lvim.colorscheme = "catppuccin-mocha"
@@ -131,9 +133,9 @@ lvim.builtin.treesitter.highlight.enable = true
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", extra_args={"--line-length", "79"}, filetypes = { "python" } },
+  { command = "black", extra_args = { "--line-length", "79" }, filetypes = { "python" } },
   { command = "isort",
-    extra_args={
+    extra_args = {
       "--lines-between-types",
       "1",
       "--lines-after-imports",
@@ -160,13 +162,31 @@ formatters.setup {
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "flake8", extra_args={"--max-line-length=79", "--ignore=E203,W503"}, filetypes = { "python" }},
+  { command = "flake8", extra_args = { "--max-line-length=79", "--ignore=E203,W503" }, filetypes = { "python" } },
 }
 
 -- Additional Plugins
 lvim.plugins = {
-    {"catppuccin/nvim", as="catppuccin"},
+  { "catppuccin/nvim", as = "catppuccin" },
+  { 'towolf/vim-helm', as = "vim-helm" },
+  { "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup {
+          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+        }
+      end, 100)
+    end,
+  },
+  { "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua", "nvim-cmp" },
+  }
 }
+
+-- COPILOT STUFF
+lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
@@ -179,5 +199,5 @@ lvim.plugins = {
 --   callback = function()
 --     -- let treesitter use bash highlight for zsh files as well
 --     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
+--   end
 -- })
