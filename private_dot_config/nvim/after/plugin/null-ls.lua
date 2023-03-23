@@ -3,36 +3,32 @@ local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local on_attach = function(client, bufnr)
-  if client.supports_method "textDocument/formatting" then
-    vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-        vim.lsp.buf.format({
-            bufnr = bufnr,
-            filter = function(client)
-                return client.name == "null_ls"
-            end
-        })
-        end,
-    })
-  end
-end
+local sources = {
+        diagnostics.golangci_lint.with({filetypes = {"go"}}),
+        diagnostics.flake8.with({
+           dynamic_command = function()
+               return "flake8"
+           end,
+           extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
+           filetypes = { "python" }
+        }),
+        diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
+        diagnostics.jsonlint.with({filetypes = {"json"}}),
+        diagnostics.markdownlint.with({filetypes = {"yaml"}}),
+        diagnostics.tsc,
+        diagnostics.php.with({filetypes = {"php"}}),
 
-null_ls.setup({
-    sources = {
-        formatting.stylua,
         formatting.black.with({
-            command = "black",
+            dynamic_command = function()
+                return "black"
+            end,
             extra_args = { "--line-length", "79" },
             filetypes = { "python" }
         }),
         formatting.isort.with({
-            command = "isort",
+            dynamic_command = function()
+                return "isort"
+            end,
             extra_args = {
               "--lines-between-types",
               "1",
@@ -74,19 +70,30 @@ null_ls.setup({
         formatting.terraform_fmt.with({filetypes = {"terraform"}}),
         formatting.yamlfmt.with({filetypes = {"yaml"}}),
 
-        diagnostics.golangci_lint.with({filetypes = {"go"}}),
-        diagnostics.flake8.with({
-            command = "flake8",
-            extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
-            filetypes = { "python" }
-        }),
-        diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
-        diagnostics.jsonlint.with({filetypes = {"json"}}),
-        diagnostics.markdownlint.with({filetypes = {"yaml"}}),
-        diagnostics.luacheck.with({filetypes = {"lua"}}),
-        diagnostics.tsc,
-        diagnostics.php.with({filetypes = {"php"}}),
-    },
+    }
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local on_attach = function(client, bufnr)
+  if client.supports_method "textDocument/formatting" then
+    vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+        vim.lsp.buf.format({
+            bufnr = bufnr,
+            filter = function(client)
+                return client.name == "null_ls"
+            end
+        })
+        end,
+    })
+  end
+end
+
+null_ls.setup({
+    sources = sources,
     on_attach = on_attach,
-    debug=true
+    debug = true
 })
