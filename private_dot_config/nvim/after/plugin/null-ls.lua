@@ -12,7 +12,7 @@ local on_attach = function(client, bufnr)
       buffer = bufnr,
       callback = function()
         -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-        vim.lsp.buf.format({ 
+        vim.lsp.buf.format({
             bufnr = bufnr,
             filter = function(client)
                 return client.name == "null_ls"
@@ -46,9 +46,9 @@ null_ls.setup({
             },
             filetypes = { "python" }
         }),
-        formatting.gofmt,
-        formatting.jq,
-        formatting.markdownlint,
+        formatting.gofmt.with({filetypes = {"go"}}),
+        formatting.jq.with({filetypes = {"json"}}),
+        formatting.markdownlint.with({filetypes = {"markdown"}}),
         formatting.prettier.with({
             command = "prettier",
             extra_args = { "--print-with", "100" },
@@ -71,21 +71,22 @@ null_ls.setup({
                 return { "--edition=2021" }
             end,
         }),
-        formatting.terraform_fmt,
-        formatting.yamlfmt,
+        formatting.terraform_fmt.with({filetypes = {"terraform"}}),
+        formatting.yamlfmt.with({filetypes = {"yaml"}}),
 
-        diagnostics.golangci_lint,
+        diagnostics.golangci_lint.with({filetypes = {"go"}}),
         diagnostics.flake8.with({
             command = "flake8",
             extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
             filetypes = { "python" }
         }),
-        diagnostics.eslint,
-        diagnostics.jsonlint,
-        diagnostics.markdownlint,
-        diagnostics.luacheck,
+        diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
+        diagnostics.jsonlint.with({filetypes = {"json"}}),
+        diagnostics.markdownlint.with({filetypes = {"yaml"}}),
+        diagnostics.luacheck.with({filetypes = {"lua"}}),
         diagnostics.tsc,
-        diagnostics.php,
+        diagnostics.php.with({filetypes = {"php"}}),
     },
     on_attach = on_attach,
+    debug=true
 })
