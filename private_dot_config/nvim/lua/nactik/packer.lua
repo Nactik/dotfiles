@@ -55,9 +55,7 @@ return require('packer').startup(function(use)
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-      require("toggleterm").setup()
-    end}
+    use {"akinsho/toggleterm.nvim", tag = '*'}
 
     -- Lua
     use {
@@ -74,8 +72,8 @@ return require('packer').startup(function(use)
 
     use { 'numToStr/Comment.nvim' }
     use 'JoosepAlviste/nvim-ts-context-commentstring'
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
+use {
+	"windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+}
 end)

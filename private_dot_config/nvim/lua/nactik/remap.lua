@@ -19,3 +19,4 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Toggle NvimTree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+
