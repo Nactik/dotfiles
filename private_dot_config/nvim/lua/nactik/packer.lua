@@ -71,4 +71,11 @@ return require('packer').startup(function(use)
         }
       end
     }
+
+    use { 'numToStr/Comment.nvim' }
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 end)
