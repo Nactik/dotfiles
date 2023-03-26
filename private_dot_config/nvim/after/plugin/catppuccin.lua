@@ -27,6 +27,12 @@ require("catppuccin").setup({
     cmp = true,
     nvimtree = true,
     telescope = true,
+    treesitter = true,
+    ts_rainbow2 = true,
+    indent_blankline = {
+      enabled = true,
+      colored_indent_levels = false,
+    },
   },
 })
 

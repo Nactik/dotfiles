@@ -12,8 +12,11 @@ return require('packer').startup(function(use)
 		-- or                            , branch = '0.1.x',
 		requires = { { 'nvim-lua/plenary.nvim' } }
 	}
+
 	use { "catppuccin/nvim", as = "catppuccin" }
+
 	use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+
 	use {
         'VonHeikemen/lsp-zero.nvim',
 		branch = 'v1.x',
@@ -38,42 +41,45 @@ return require('packer').startup(function(use)
 		}
 	}
 
-    use {'towolf/vim-helm'}
+  use {'towolf/vim-helm'}
 
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
+  use {
+  'nvim-tree/nvim-tree.lua',
+      requires = {
+          'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      },
+      tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
 
-    use "jose-elias-alvarez/null-ls.nvim"
+  use "jose-elias-alvarez/null-ls.nvim"
 
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
-    use {"akinsho/toggleterm.nvim", tag = '*'}
+  use {"akinsho/toggleterm.nvim", tag = '*'}
 
-    -- Lua
-    use {
-      "folke/todo-comments.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("todo-comments").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
+  -- Lua
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 
-    use { 'numToStr/Comment.nvim' }
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-use {
-	"windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-}
+  use { 'numToStr/Comment.nvim' }
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use {
+      "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
+  use "lukas-reineke/indent-blankline.nvim"
+
+  use { "HiPhish/nvim-ts-rainbow2" }
 end)
