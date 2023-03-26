@@ -82,4 +82,6 @@ return require('packer').startup(function(use)
   use "lukas-reineke/indent-blankline.nvim"
 
   use { "HiPhish/nvim-ts-rainbow2" }
+
+  use { "github/copilot.vim" }
 end)

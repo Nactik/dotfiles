@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-
 -- VSCode like remap to move lines
 
 vim.keymap.set("n", "<M-j>", ":m .+1<CR>==")
@@ -19,4 +18,9 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Toggle NvimTree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+
+-- Copilot
+vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
+-- vim.keymap.set("i", "<C-a>", ":copilot#Accept('')<CR>")
+vim.g.copilot_no_tab_map = true
 
