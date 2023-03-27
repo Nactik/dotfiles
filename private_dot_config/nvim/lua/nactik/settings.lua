@@ -21,7 +21,7 @@ vim.opt.scrolloff = 999
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard = 'unnamedplus'
 
@@ -33,4 +33,14 @@ vim.opt.splitright = true
 
 -- Font options
 vim.opt.guifont = "Hack Nerd Mono:17"
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
+  desc = 'Hightlight selection on yank',
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 100 }
+  end,
+})
 
