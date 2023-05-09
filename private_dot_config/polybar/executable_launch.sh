@@ -14,7 +14,7 @@ polybar -c ~/.config/polybar/config.ini top 2>~/.config/polybar/top.log &
 if [[ ! -z ${external_monitor} ]]; then
   last_monitor=$(cat .config/polybar/last_monitor.txt | head -n 1)
   ## Replace last_monitor by current in polybar config
-  sed -i "s/${last_monitor}/${external_monitor}/g" ~/.config/polybar/config.ini
+  sed -i "/eDP/! s/${last_monitor}/${external_monitor}/g" ~/.config/polybar/config.ini
   ## Update last_monitor
   echo $external_monitor > .config/polybar/last_monitor.txt
 
