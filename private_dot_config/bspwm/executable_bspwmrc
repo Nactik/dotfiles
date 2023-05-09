@@ -1,27 +1,35 @@
 #! /bin/bash
 
+external_monitor=$(xrandr --listactivemonitors | tail -n +2 | awk -F' ' '{ print $4 }' | grep -P '^(?!eDP-1).*$' | head -n 1) 
+
 sxhkd -c ~/.config/sxhkd/sxhkdrc &
-autorandr -c & 
 # Click on touchpad
 xinput set-prop 11 352 1
 # Natural scrolling
 xinput set-prop 11 329 1
 
-~/.config/bspwm/startup.sh
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 &
 
+~/.config/bspwm/startup.sh --reload
+
+feh --bg-center ~/.config/wallpaper/wall.png &
 eww daemon &
 dunst -conf ~/.config/dunst/dunstrc &
 picom &
 
-if [[ $(xrandr -q | grep "DP-2 connected") ]]; then
-  bspc monitor eDP-1 -d 1 2 3 4 5 &
-  bspc monitor DP-2 -d 6 7 8 9 0 &
-else 
-  bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
-fi
+# if [[ ! -z ${external_monitor} ]]; then
+#   notify-send -i display "${external_monitor} connected ! "
+#   bspc monitor eDP-1 -d 1 2 3 4 5 &
+#   bspc monitor ${external_monitor} -d 6 7 8 9 0 &
+# else 
+#   bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
+# fi
+
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitor true
 
 bspc config border_width 3
-bspc config focused_border_color "#a6e3a1"
+bspc config focused_border_color "#f5e0dc"
   
 bspc config window_gap 10
 bspc config pointer_follows_monitor true

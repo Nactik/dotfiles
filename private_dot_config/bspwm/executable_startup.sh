@@ -1,15 +1,22 @@
 #!/bin/bash
 
 internal_monitor="eDP-1"
-external_monitor="DP-2"
+# external_monitor="DP-2" 
+external_monitor=$(xrandr --listactivemonitors | tail -n +2 | awk -F' ' '{ print $4 }' | grep -P '^(?!eDP-1).*$' | head -n 1) 
+
 
 monitor_add() {
 
+  until [[ $(bspc query -M | wc -l) -eq 2 ]]
+  do
+    sleep 1
+  done
+
   desktops=5 # How many desktopo to move to 2nd monitor
 
-  bspc monitor "$external_monitor" -a Desktop
+  # bspc monitor "$external_monitor" -a Desktop
   
-  for desktop in $(bspc query -D --names -m "$internal_monitor" | sed "$desktops"q); do
+  for desktop in $(bspc query -D --names -m "$internal_monitor" | tail -n $desktops); do
     bspc desktop "$desktop" --to-monitor "$external_monitor"
   done
 
@@ -26,24 +33,25 @@ monitor_remove() {
   # do
   #  bspc desktop $desktop --to-monitor $external_monitor
   # done
-  
-  bspc monitor "$external_monitor" -a Desktop
+  ext_monitor=$(cat .config/bspwm/last_monitor.txt | head -1)
+  bspc monitor "$ext_monitor" -a Desktop
 
-  for desktop in $(bspc query -D -m "$external_monitor"); do
+  for desktop in $(bspc query -D --names -m "$ext_monitor"); do
     bspc desktop "$desktop" --to-monitor "$internal_monitor"
   done 
 
-  bspc desktop Desktop --remove
-  bspc monitor "$internal_monitor" -o 1 2 3 4 5 6 7 8 9 0
-
+  bspc desktop "Desktop" -r
+  bspc monitor "$ext_monitor" -r
 }
 
-## Main setup
-
-if [[ $(xrandr -q | grep "DP-2 connected") ]]; then
-  monitor_add
-else 
-  monitor_remove
+if [[ $1 -ne "--reload" ]]; then  
+  ## Main setup
+  if [[ ! -z ${external_monitor} ]]; then
+    echo "${external_monitor}" > ~/.config/bspwm/last_monitor.txt
+    monitor_add
+  else
+    monitor_remove
+  fi
 fi
 
 
