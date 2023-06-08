@@ -41,7 +41,7 @@ return require('packer').startup(function(use)
 		}
 	}
 
-  use {'towolf/vim-helm'}
+  use { 'towolf/vim-helm', as = "vim-helm" }
 
   use {
   'nvim-tree/nvim-tree.lua',

@@ -34,6 +34,9 @@ vim.opt.splitright = true
 -- Font options
 vim.opt.guifont = "Hack Nerd Mono:17"
 
+-- lualine on top of the screen
+vim.opt.laststatus = 3
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight_yank', {}),
