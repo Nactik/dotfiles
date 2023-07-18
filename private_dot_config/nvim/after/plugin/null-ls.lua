@@ -67,7 +67,7 @@ local sources = {
                 return { "--edition=2021" }
             end,
         }),
-        formatting.terraform_fmt.with({filetypes = {"terraform"}}),
+        formatting.terraform_fmt.with({filetypes = {"terraform", "hcl"}}),
         formatting.yamlfmt.with({filetypes = {"yaml"}}),
 
     }
