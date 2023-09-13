@@ -84,4 +84,9 @@ return require('packer').startup(function(use)
   use { "HiPhish/nvim-ts-rainbow2" }
 
   use { "github/copilot.vim" }
+
+  use({ 'rose-pine/neovim', as = 'rose-pine' })
+
+  use{ 'windwp/nvim-ts-autotag' }
+
 end)

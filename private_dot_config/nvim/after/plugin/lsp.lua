@@ -21,8 +21,7 @@ lsp.ensure_installed({
     "rust_analyzer",
     "tailwindcss",
     "terraformls",
-    "yamlls",
-    "pyright"
+    "yamlls"
 })
 
 lsp.nvim_workspace()

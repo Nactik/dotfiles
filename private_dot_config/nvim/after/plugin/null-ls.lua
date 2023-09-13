@@ -29,16 +29,14 @@ local sources = {
             dynamic_command = function()
                 return "isort"
             end,
-            extra_args = {
-              "--lines-between-types",
-              "1",
-              "--lines-after-imports",
-              "2",
+            args = {
+              "--stdout",
+              "--profile",
+              "black",
               "--line-length",
               "79",
-              "--multi-line",
-              "3",
-              "--trailing-comma"
+              "$FILENAME",
+              "-",
             },
             filetypes = { "python" }
         }),
@@ -95,5 +93,5 @@ end
 null_ls.setup({
     sources = sources,
     on_attach = on_attach,
-    debug = false
+    debug = true
 })
