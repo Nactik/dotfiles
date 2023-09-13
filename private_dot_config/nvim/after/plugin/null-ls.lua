@@ -93,5 +93,5 @@ end
 null_ls.setup({
     sources = sources,
     on_attach = on_attach,
-    debug = true
+    debug = false
 })
