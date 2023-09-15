@@ -30,13 +30,12 @@ local sources = {
                 return "isort"
             end,
             args = {
+              "$FILENAME",
               "--stdout",
               "--profile",
               "black",
               "--line-length",
               "79",
-              "$FILENAME",
-              "-",
             },
             filetypes = { "python" }
         }),
