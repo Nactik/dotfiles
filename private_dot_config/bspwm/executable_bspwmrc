@@ -3,27 +3,29 @@
 external_monitor=$(xrandr --listactivemonitors | tail -n +2 | awk -F' ' '{ print $4 }' | grep -P '^(?!eDP-1).*$' | head -n 1) 
 
 sxhkd -c ~/.config/sxhkd/sxhkdrc &
+
 # Click on touchpad
 xinput set-prop 11 352 1
 # Natural scrolling
 xinput set-prop 11 329 1
 
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 &
+if [[ -z ${external_monitor} ]]; then
+  bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
+fi
 
 ~/.config/bspwm/startup.sh --reload
 
 feh --bg-center ~/.config/wallpaper/wall.png &
-eww daemon &
-dunst -conf ~/.config/dunst/dunstrc &
-picom &
 
-# if [[ ! -z ${external_monitor} ]]; then
-#   notify-send -i display "${external_monitor} connected ! "
-#   bspc monitor eDP-1 -d 1 2 3 4 5 &
-#   bspc monitor ${external_monitor} -d 6 7 8 9 0 &
-# else 
-#   bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
-# fi
+## Kill eww
+pkill eww
+eww daemon &
+
+pkill dunst
+dunst -conf ~/.config/dunst/dunstrc &
+
+pkill picom
+picom &
 
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitor true
