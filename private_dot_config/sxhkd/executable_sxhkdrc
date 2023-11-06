@@ -11,8 +11,8 @@ alt + {_, shift + }Return
 	{gnome-terminal, bspc node -s biggest.local}
  
 # close or kill a window
-alt + {_,shift + }c
-	bspc node -{k,c}
+alt + shift + c
+	bspc node -c
  
 # change the window state
 alt + {t,ctrl + t,l,f}
@@ -26,7 +26,7 @@ super + alt + shift + {h,j,k,l}
 	bspc node -z {left 20 0,bottom 0 -20,top 0 20,right -20 0}
 
 # focus or send a window to the given desktop
-alt + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla,agrave}
+alt + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
 	bspc {desktop -f, node -d} focused:'^{1-9,10}'
 
 super + space
@@ -35,8 +35,17 @@ super + space
 super + shift + {Left, Right, Up, Down}
   bspc node -m {west,east, north,south} --follow
 
-{alt,super} + Tab	
-  bspc {node, monitor} --focus next
+super + Tab	
+  bspc monitor --focus next
 
-super + l 
-  i3lock --image $HOME/.config/wallpaper/lock.png --tiling
+# lock pc
+super + {_, shift +} l
+  i3lock --image $HOME/.config/wallpaper/lock.png --tiling {;, && systemctl suspend}
+
+super + shift + s 
+  maim -s | xclip -selection clipboard -t image/png
+
+super + {Left, Down, Up, Right}
+  bspc node -f {west,south,north,east}.local
+# super + s
+  # ${HOME}/.config/scripts/ocr.sh
