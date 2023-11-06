@@ -10,9 +10,9 @@ Tools:
 - **Terminal**: gnome-terminal (keeping it classy)
 - **Editor**: Nvim
 - **Color Scheme**: Catppuccin (Mocha)
-- **Compositor**: picom
-- **Notifications**: daemon
-- **Launcher**: rofi
+- **Compositor**: Picom
+- **Notifications**: Dunst
+- **Launcher**: Rofi
 
 ## Depedencies
 
