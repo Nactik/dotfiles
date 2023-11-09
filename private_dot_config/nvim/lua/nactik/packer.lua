@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.1',
+		'nvim-telescope/telescope.nvim', branch = '0.1.x',
 		-- or                            , branch = '0.1.x',
 		requires = { { 'nvim-lua/plenary.nvim' } }
 	}
@@ -79,7 +79,7 @@ return require('packer').startup(function(use)
       "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
   }
-  use "lukas-reineke/indent-blankline.nvim"
+  use { "lukas-reineke/indent-blankline.nvim"}
 
   use { "HiPhish/nvim-ts-rainbow2" }
 
@@ -87,6 +87,11 @@ return require('packer').startup(function(use)
 
   use({ 'rose-pine/neovim', as = 'rose-pine' })
 
-  use{ 'windwp/nvim-ts-autotag' }
+  use { 'windwp/nvim-ts-autotag' }
+
+  -- Dadbod UI - Database management
+  use {'kristijanhusak/vim-packager', opt = true}
+  use { 'tpope/vim-dadbod' }
+  use {'kristijanhusak/vim-dadbod-ui'}
 
 end)

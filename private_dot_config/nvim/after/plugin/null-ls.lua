@@ -30,8 +30,10 @@ local sources = {
                 return "isort"
             end,
             args = {
-              "$FILENAME",
               "--stdout",
+              "--filename",
+              "$FILENAME",
+              "-",
               "--profile",
               "black",
               "--line-length",
@@ -92,5 +94,5 @@ end
 null_ls.setup({
     sources = sources,
     on_attach = on_attach,
-    debug = false
+    debug = true
 })
