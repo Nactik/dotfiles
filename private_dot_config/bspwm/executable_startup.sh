@@ -45,7 +45,6 @@ monitor_remove() {
 }
 
 if [[ $1 != "--reload" ]]; then 
-  notify-send "BSPWM" "Starting BSPWM..."
   ## Main setup
   if [[ ! -z ${external_monitor} ]]; then
     echo "${external_monitor}" > ~/.config/bspwm/last_monitor.txt
