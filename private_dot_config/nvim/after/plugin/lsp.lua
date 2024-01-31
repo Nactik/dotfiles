@@ -11,7 +11,6 @@ lsp.ensure_installed({
     "docker_compose_language_service",
     "eslint",
     "emmet_ls",
-    "golangci_lint_ls",
     "html",
     "jsonls",
     "jdtls",

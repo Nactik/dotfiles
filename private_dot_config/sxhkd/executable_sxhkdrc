@@ -40,7 +40,7 @@ super + Tab
 
 # lock pc
 super + {_, shift +} l
-  i3lock --image $HOME/.config/wallpaper/lock.png --tiling {;, && systemctl suspend}
+  ~/.config/sxhkd/scripts/i3lock.sh {;, && systemctl suspend}
 
 super + shift + s 
   maim -s | xclip -selection clipboard -t image/png

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 
 if [[ $(xrandr -q | grep "DP-2 connected") ]]; then
