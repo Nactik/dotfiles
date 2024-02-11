@@ -47,6 +47,32 @@ chezmoi apply
 # chezmoi apply ~/.config/nvim
 ```
 
+### Homebrew - Installation & Packages restoration
+
+First you need to install `brew`:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+To ensure that brew is in your `PATH`:
+
+```bash
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zshrc
+```
+
+Then to restore packages contained in my `Brewfile`:
+
+```bash
+## Tap bundle
+brew tap Homebrew/bundle
+
+## Restore
+brew bundle --file ~/Brewfile 
+```
+
 ## RoadMap
 
 - Use `ewww` to create a dashboard widget (Wifi, bluetooth, sound)
