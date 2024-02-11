@@ -1,0 +1,8 @@
+tap "homebrew/bundle"
+brew "helm"
+brew "helmfile"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "neovim"
+brew "terragrunt"
+brew "tfenv"
