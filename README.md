@@ -72,8 +72,3 @@ brew tap Homebrew/bundle
 ## Restore
 brew bundle --file ~/Brewfile 
 ```
-
-## RoadMap
-
-- Use `ewww` to create a dashboard widget (Wifi, bluetooth, sound)
-- Better polybar
