@@ -106,12 +106,46 @@ alias dcp="docker compose pull"
 alias ktx="kubectl ctx"
 alias kns="kubectl ns"
 alias mk="minikube"
+alias k="kubectl"
+alias w="watch -n 0.5"
+alias wk="watch -n 0.5 kubectl"
 ##### Prompt #####
 EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🐟 🚀)
 
 #function random_emoji {
 #        echo ${emojiArray[$RANDOM % ${#emojiArray[@]}]}
 #}
+#
+function get_admin_password {
+  kubectl get secret project-environment -o yaml | yq '.data.PROJECT_CONFIG' | base64 -d | yq '.authentication.inhouse.administrator.password' | xclip -sel clipboard
+}
+
+
+function archive-buckets() {
+  (gsutil label get gs://heka-$2-$1-backups | grep -q archived_since) && echo "Bucket is already labelled" || gsutil label ch -l archived_since:$(date +%s) gs://heka-$2-$1-backups
+  (gsutil label get gs://heka-$2-$1-storage | grep -q archived_since) && echo "Bucket is already labelled" || gsutil label ch -l archived_since:$(date +%s) gs://heka-$2-$1-storage
+
+  echo -e "\033[1;36mlatest backups by date:"
+  gsutil ls -lah gs://heka-$2-$1-backups/ | sort -k 2
+  echo -e "\033[0m\n\n"
+
+  echo "Changing default storage class"
+  gsutil defstorageclass set ARCHIVE gs://heka-$2-$1-backups
+  gsutil defstorageclass set ARCHIVE gs://heka-$2-$1-storage
+
+  echo "Archiving all files..."
+  gsutil -m rewrite -Ors ARCHIVE "gs://heka-$2-$1-storage/"
+  gsutil -m rewrite -Ors ARCHIVE "gs://heka-$2-$1-backups/"
+
+  echo "Removing users from $2-$1-backups Bucket's permission..."
+  users=$(gsutil iam get gs://heka-$2-$1-backups  | jq -r '.bindings[].members[] ' | sort | uniq | grep "user:")
+  echo "${users}"
+  echo "${users}" | xargs -r -I % gsutil iam ch -d % gs://heka-$2-$1-backups
+  echo "Removing users from $2-$1-storage Bucket's permission..."
+  users=$(gsutil iam get gs://heka-$2-$1-storage  | jq -r '.bindings[].members[] ' | sort | uniq | grep "user:")
+  echo "${users}"
+  echo "${users}" | xargs -r -I % gsutil iam ch -d % gs://heka-$2-$1-storage
+}
 
 PROMPT="%B%{$fg[green]%}%n%f %{$fg[yellow]%}@%f %{$fg[blue]%}%~%f \${EMOJI[RANDOM%${#EMOJI[@]} + 1]}%b "
 
@@ -119,5 +153,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/bin
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-export KUBE_EDITOR="code --wait"
+export KUBE_EDITOR="nvim"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Created by `pipx` on 2024-01-22 14:55:10
+export PATH="$PATH:/home/nathan/.local/bin"
+export GITLAB_URL="https://git.sia-partners.com"
+export GITLAB_URI=${GITLAB_URL}
+export GITLAB_USERNAME="nathan.capiaux"
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/nathan/.pulumi/bin
