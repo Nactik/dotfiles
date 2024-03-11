@@ -25,12 +25,4 @@ require('nvim-treesitter.configs').setup({
     strategy = require('ts-rainbow').strategy.global,
   },
 
-  context_commentstring = {
-    enable = true,
-    config = {
-        css = '// %s',
-        html = '<!-- %s -->',
-        python = '# %s'
-    }
-  }
 })

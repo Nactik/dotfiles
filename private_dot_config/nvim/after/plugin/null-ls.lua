@@ -31,13 +31,11 @@ local sources = {
             end,
             args = {
               "--stdout",
-              "--filename",
-              "$FILENAME",
-              "-",
               "--profile",
               "black",
               "--line-length",
               "79",
+              "$FILENAME"
             },
             filetypes = { "python" }
         }),
