@@ -6,8 +6,8 @@ sxhkd -c ~/.config/sxhkd/sxhkdrc &
 
 # Click on touchpad
 # Natural scrolling
-xinput --set-prop 10 328 1
-xinput --set-prop 10 351 1
+xinput --set-prop 10 327 1
+xinput --set-prop 10 350 1
 
 if [[ -z ${external_monitor} ]]; then
   bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
@@ -25,6 +25,7 @@ pkill dunst
 dunst -conf ~/.config/dunst/dunstrc &
 
 pkill picom
+# picom --unredir-if-possible &
 picom &
 
 bspc config remove_disabled_monitors true
