@@ -9,6 +9,7 @@ sudo apt install -y curl \
   gcc \
   yq \
   jq \
+  python3-pip \
   google-chrome-stable \
   alacritty \
   bspwm \
