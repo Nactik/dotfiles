@@ -1,0 +1,1 @@
+ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/su nathan --command='systemctl --user start bspwm-reload.service'"

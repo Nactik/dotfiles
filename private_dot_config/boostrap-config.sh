@@ -16,11 +16,16 @@ sudo apt install -y curl \
   rofi \
   polybar \
   dunst \
+  apt-transport-https \
+  ca-certificates \
+  pavucontrol \
+  gnupg
 
 
 # i3-color dependencies
 echo "Installing i3-color build deps ..."
 sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+
 
 echo "Installing brew ..."
 
@@ -89,3 +94,9 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 
+# Gcloud
+echo "Installing gcloud"
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+sudo apt-get update && sudo apt-get install google-cloud-cli
+sudo apt install google-cloud-cli-gke-gcloud-auth-plugin
