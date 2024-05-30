@@ -7,10 +7,8 @@ echo "Installing common utils"
 sudo apt install -y curl \
   git \
   gcc \
-  yq \
   jq \
   python3-pip \
-  google-chrome-stable \
   alacritty \
   bspwm \
   rofi \
@@ -19,7 +17,20 @@ sudo apt install -y curl \
   apt-transport-https \
   ca-certificates \
   pavucontrol \
+  fzf \
+  xclip \
   gnupg
+
+wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+    chmod +x /usr/bin/yq
+
+echo "Installing Google-chrome"
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmour -o /usr/share/keyrings/chrome-keyring.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+
+sudo apt update
+sudo apt install google-chrome-stable
+
 
 
 # i3-color dependencies
