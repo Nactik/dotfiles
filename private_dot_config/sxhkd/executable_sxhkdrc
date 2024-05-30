@@ -8,7 +8,7 @@ alt + shift + {q,r}
  
 # create a new terminal window or swap the current one to the biggest one in the screen 
 alt + {_, shift + }Return
-	{gnome-terminal, bspc node -s biggest.local}
+	{alacritty, bspc node -s biggest.local}
  
 # close or kill a window
 alt + shift + c
