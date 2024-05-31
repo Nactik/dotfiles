@@ -6,8 +6,8 @@ sxhkd -c ~/.config/sxhkd/sxhkdrc &
 
 # Click on touchpad
 # Natural scrolling
-xinput --set-prop 10 327 1
-xinput --set-prop 10 350 1
+xinput --set-prop 9 328 1
+xinput --set-prop 9 320 1
 
 if [[ -z ${external_monitor} ]]; then
   bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0 & 
@@ -16,10 +16,6 @@ fi
 ~/.config/bspwm/startup.sh --reload
 
 feh --bg-center ~/.config/wallpaper/wall.png &
-
-## Kill eww
-pkill eww
-eww daemon &
 
 pkill dunst
 dunst -conf ~/.config/dunst/dunstrc &

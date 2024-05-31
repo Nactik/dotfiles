@@ -25,17 +25,20 @@ local sources = {
             extra_args = { "--line-length", "79" },
             filetypes = { "python" }
         }),
+
         formatting.isort.with({
             dynamic_command = function()
                 return "isort"
             end,
             args = {
               "--stdout",
+              "--filename",
+              "$FILENAME",
+              "-",
               "--profile",
               "black",
               "--line-length",
               "79",
-              "$FILENAME"
             },
             filetypes = { "python" }
         }),
