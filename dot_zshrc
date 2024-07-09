@@ -109,6 +109,8 @@ alias mk="minikube"
 alias k="kubectl"
 alias w="watch -n 0.5"
 alias wk="watch -n 0.5 kubectl"
+alias istioctl="~/istio-1.22.1/bin/istioctl"
+alias giphon="python3 -m giphon siphon --output ~/projects --fetch-repositories --save-ci-variables --namespace"
 ##### Prompt #####
 EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🐟 🚀)
 

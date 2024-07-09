@@ -15,7 +15,6 @@ local sources = {
         diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
         diagnostics.jsonlint.with({filetypes = {"json"}}),
         diagnostics.markdownlint.with({filetypes = {"yaml"}}),
-        diagnostics.tsc,
         diagnostics.php.with({filetypes = {"php"}}),
 
         formatting.black.with({
