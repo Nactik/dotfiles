@@ -12,7 +12,41 @@ local sources = {
            extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
            filetypes = { "python" }
         }),
-        diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
+
+        -- Typescript Stuff --
+        diagnostics.eslint.with {
+            condition = function(utils)
+              return not utils.root_has_file '.pnp.cjs'
+            end,
+            filetypes = { "typescript"}
+        },
+        -- Yarn PnP
+        diagnostics.eslint.with {
+          command = 'yarn',
+          args = { 'eslint', '--fix','--stdin-filename', '$FILENAME' },
+          condition = function(utils)
+            return utils.has_file '.pnp.cjs'
+          end,
+          filetypes = { "typescript","typescriptreact" }
+        },
+
+        formatting.prettier.with {
+            condition = function(utils)
+              return not utils.has_file '.pnp.cjs'
+            end,
+            filetypes = { "typescript","typescriptreact" }
+        },
+        -- Yarn PnP
+        formatting.prettier.with {
+          command = 'yarn',
+          args = { 'prettier', '-w', '--stdin-filepath', '$FILENAME' },
+          condition = function(utils)
+            return utils.has_file '.pnp.cjs'
+          end,
+          filetypes = { "typescript","typescriptreact" }
+        },
+
+
         diagnostics.jsonlint.with({filetypes = {"json"}}),
         diagnostics.markdownlint.with({filetypes = {"yaml"}}),
         diagnostics.php.with({filetypes = {"php"}}),
@@ -44,11 +78,6 @@ local sources = {
         formatting.gofmt.with({filetypes = {"go"}}),
         formatting.jq.with({filetypes = {"json"}}),
         formatting.markdownlint.with({filetypes = {"markdown"}}),
-        formatting.prettier.with({
-            command = "prettier",
-            extra_args = { "--print-with", "100" },
-            filetypes = { "typescript", "typescriptreact" },
-        }),
         formatting.rustfmt.with({
             extra_args = function(params)
                 local Path = require("plenary.path")
