@@ -20,6 +20,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- Copilot
-vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
+-- vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
 -- vim.keymap.set("i", "<C-a>", ":copilot#Accept('')<CR>")
-vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_no_tab_map = true
