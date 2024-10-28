@@ -20,17 +20,17 @@ alt + {t,ctrl + t,l,f}
  
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+	bspc node -z {left -80 0,bottom 0 20,top 0 -20,right 80 0}
 
 super + alt + shift + {h,j,k,l}
-	bspc node -z {left 20 0,bottom 0 -20,top 0 20,right -20 0}
+	bspc node -z {left 80 0,bottom 0 -20,top 0 20,right -80 0}
 
 # focus or send a window to the given desktop
 alt + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
 	bspc {desktop -f, node -d} focused:'^{1-9,10}'
 
 super + space
-  rofi -show drun
+  ~/.config/rofi/launchers/type-1/launcher.sh
 
 super + shift + {Left, Right, Up, Down}
   bspc node -m {west,east, north,south} --follow
@@ -47,5 +47,12 @@ super + shift + s
 
 super + {Left, Down, Up, Right}
   bspc node -f {west,south,north,east}.local
+
+# XF86MonBrightnessUp
+#   notify-send "Brightness up"
+#   brightnessctl -e set 5%+
+#
+# XF86MonBrightnessDown
+#   brightnessctl -e set 5%-
 # super + s
   # ${HOME}/.config/scripts/ocr.sh
