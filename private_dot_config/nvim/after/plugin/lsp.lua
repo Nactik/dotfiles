@@ -9,7 +9,6 @@ lsp.ensure_installed({
     "cssls",
     "dockerls",
     "docker_compose_language_service",
-    "eslint",
     "emmet_ls",
     "html",
     "jsonls",

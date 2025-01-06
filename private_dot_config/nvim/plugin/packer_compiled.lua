@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/home/nathan/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["codesnap.nvim"] = {
+    loaded = true,
+    path = "/home/nathan/.local/share/nvim/site/pack/packer/start/codesnap.nvim",
+    url = "https://github.com/mistricky/codesnap.nvim"
+  },
   ["copilot.vim"] = {
     loaded = true,
     path = "/home/nathan/.local/share/nvim/site/pack/packer/start/copilot.vim",
@@ -231,26 +236,10 @@ _G.packer_plugins = {
     path = "/home/nathan/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-dadbod"] = {
-    loaded = true,
-    path = "/home/nathan/.local/share/nvim/site/pack/packer/start/vim-dadbod",
-    url = "https://github.com/tpope/vim-dadbod"
-  },
-  ["vim-dadbod-ui"] = {
-    loaded = true,
-    path = "/home/nathan/.local/share/nvim/site/pack/packer/start/vim-dadbod-ui",
-    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
-  },
   ["vim-helm"] = {
     loaded = true,
     path = "/home/nathan/.local/share/nvim/site/pack/packer/start/vim-helm",
     url = "https://github.com/towolf/vim-helm"
-  },
-  ["vim-packager"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/nathan/.local/share/nvim/site/pack/packer/opt/vim-packager",
-    url = "https://github.com/kristijanhusak/vim-packager"
   }
 }
 

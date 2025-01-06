@@ -16,7 +16,7 @@ local sources = {
         -- Typescript Stuff --
         diagnostics.eslint.with {
             condition = function(utils)
-              return not utils.root_has_file '.pnp.cjs'
+              return not utils.has_file '.pnp.cjs'
             end,
             filetypes = { "typescript"}
         },
@@ -27,7 +27,7 @@ local sources = {
           condition = function(utils)
             return utils.has_file '.pnp.cjs'
           end,
-          filetypes = { "typescript","typescriptreact" }
+          filetypes = { "typescript","typescriptreact", "typescript.tsx", "javascript.tsx" }
         },
 
         formatting.prettier.with {

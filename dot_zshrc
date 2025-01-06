@@ -111,6 +111,8 @@ alias w="watch -n 0.5"
 alias wk="watch -n 0.5 kubectl"
 alias istioctl="~/istio-1.22.1/bin/istioctl"
 alias giphon="python3 -m giphon siphon --output ~/projects --fetch-repositories --save-ci-variables --namespace"
+alias ktest="kubectl netshoot run tmp-shell"
+
 ##### Prompt #####
 EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🐟 🚀)
 
@@ -147,6 +149,14 @@ function archive-buckets() {
   users=$(gsutil iam get gs://heka-$2-$1-storage  | jq -r '.bindings[].members[] ' | sort | uniq | grep "user:")
   echo "${users}"
   echo "${users}" | xargs -r -I % gsutil iam ch -d % gs://heka-$2-$1-storage
+}
+
+function get_pod_on_node_label() {
+  nodes=$(kubectl get node -l $1 --no-headers | awk '{print $1}')
+  for node ($nodes)
+  do
+    echo $(kubectl get pods -A --template "{{range .items}}{{if eq .spec.nodeName \"$node\"}}{{.spec.nodeName}} - {{.metadata.namespace}} - {{.metadata.name}}{{\"\\\n\"}}{{end}}{{end}}")
+  done
 }
 
 PROMPT="%B%{$fg[green]%}%n%f %{$fg[yellow]%}@%f %{$fg[blue]%}%~%f \${EMOJI[RANDOM%${#EMOJI[@]} + 1]}%b "

@@ -88,9 +88,6 @@ return require('packer').startup(function(use)
 
   use { 'windwp/nvim-ts-autotag' }
 
-  -- Dadbod UI - Database management
-  use {'kristijanhusak/vim-packager', opt = true}
-  use { 'tpope/vim-dadbod' }
-  use {'kristijanhusak/vim-dadbod-ui'}
+  use {'mistricky/codesnap.nvim', run = 'make'}
 
 end)
