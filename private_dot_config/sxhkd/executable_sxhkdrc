@@ -48,6 +48,8 @@ super + shift + s
 super + {Left, Down, Up, Right}
   bspc node -f {west,south,north,east}.local
 
+
+
 # XF86MonBrightnessUp
 #   notify-send "Brightness up"
 #   brightnessctl -e set 5%+
