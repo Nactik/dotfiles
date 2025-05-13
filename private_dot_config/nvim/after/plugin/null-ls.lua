@@ -4,14 +4,8 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
 local sources = {
+
         diagnostics.golangci_lint.with({filetypes = {"go"}}),
-        diagnostics.flake8.with({
-           dynamic_command = function()
-               return "flake8"
-           end,
-           extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
-           filetypes = { "python" }
-        }),
 
         -- Typescript Stuff --
         diagnostics.eslint.with {
@@ -51,7 +45,31 @@ local sources = {
         diagnostics.markdownlint.with({filetypes = {"yaml"}}),
         diagnostics.php.with({filetypes = {"php"}}),
 
+        -- Python stuff
+        -- Ruff
+        formatting.ruff.with({
+            condition = function(utils)
+              return utils.has_file 'ruff.toml'
+            end,
+            command = 'ruff',
+            args = { "check","--select","I","--fix", "&&","ruff","format","-n", "--stdin-filename", "$FILENAME", "-"},
+            filetypes = { "python" }
+        }),
+
+        diagnostics.ruff.with({
+            condition = function(utils)
+              return utils.has_file 'ruff.toml'
+            end,
+            command = 'ruff',
+            args = {"check", "-n", "--stdin-filename", "--fix", "$FILENAME", "-"},
+            filetypes = { "python" }
+        }),
+
+        -- Classic heka stuff
         formatting.black.with({
+            condition = function(utils)
+              return not utils.has_file 'ruff.toml'
+            end,
             dynamic_command = function()
                 return "black"
             end,
@@ -60,6 +78,9 @@ local sources = {
         }),
 
         formatting.isort.with({
+            condition = function(utils)
+              return not utils.has_file 'ruff.toml'
+            end,
             dynamic_command = function()
                 return "isort"
             end,
@@ -75,6 +96,20 @@ local sources = {
             },
             filetypes = { "python" }
         }),
+
+        diagnostics.flake8.with({
+           condition = function(utils)
+             return not utils.has_file 'ruff.toml'
+           end,
+           dynamic_command = function()
+               return "flake8"
+           end,
+           extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
+           filetypes = { "python" }
+        }),
+
+
+        -- Random
         formatting.gofmt.with({filetypes = {"go"}}),
         formatting.jq.with({filetypes = {"json"}}),
         formatting.markdownlint.with({filetypes = {"markdown"}}),

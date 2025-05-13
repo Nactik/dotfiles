@@ -13,7 +13,7 @@ lsp.ensure_installed({
     "html",
     "jsonls",
     "jdtls",
-    "tsserver",
+    "ts_ls",
     "lua_ls",
     "marksman",
     "rust_analyzer",
