@@ -2,11 +2,15 @@ local null_ls = require("null-ls")
 
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+diagnostics.eslint = require("none-ls.diagnostics.eslint")
+diagnostics.flake8 = require("none-ls.diagnostics.flake8")
+diagnostics.ruff = require("none-ls.diagnostics.ruff")
+formatting.ruff = require("none-ls.formatting.ruff")
+formatting.jq = require("none-ls.formatting.jq")
+formatting.rustfmt = require("none-ls.formatting.rustfmt")
 
 local sources = {
-
         diagnostics.golangci_lint.with({filetypes = {"go"}}),
-
         -- Typescript Stuff --
         diagnostics.eslint.with {
             condition = function(utils)
@@ -41,9 +45,8 @@ local sources = {
         },
 
 
-        diagnostics.jsonlint.with({filetypes = {"json"}}),
+        -- diagnostics.jsonlint.with({filetypes = {"json"}}),
         diagnostics.markdownlint.with({filetypes = {"yaml"}}),
-        diagnostics.php.with({filetypes = {"php"}}),
 
         -- Python stuff
         -- Ruff
@@ -160,3 +163,5 @@ null_ls.setup({
     on_attach = on_attach,
     debug = true
 })
+
+vim.lsp.enable("null-ls")

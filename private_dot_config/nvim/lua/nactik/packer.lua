@@ -50,7 +50,9 @@ return require('packer').startup(function(use)
       },
   }
 
-  use "jose-elias-alvarez/null-ls.nvim"
+  -- use "jose-elias-alvarez/null-ls.nvim"
+  use "nvimtools/none-ls.nvim"
+  use "nvimtools/none-ls-extras.nvim"
 
   use {
     'nvim-lualine/lualine.nvim',
@@ -89,5 +91,20 @@ return require('packer').startup(function(use)
   use { 'windwp/nvim-ts-autotag' }
 
   use {'mistricky/codesnap.nvim', run = 'make'}
+
+  use {
+    "mason-org/mason.nvim",
+  }
+
+  use { "mason-org/mason-lspconfig.nvim"}
+
+  use {
+      'saghen/blink.cmp',
+      -- optional: provides snippets for the snippet source
+      requires = { 'rafamadriz/friendly-snippets' },
+
+      -- use a release tag to download pre-built binaries
+      tag = 'v1.*',
+  }
 
 end)
