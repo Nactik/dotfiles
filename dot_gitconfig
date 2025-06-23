@@ -110,6 +110,33 @@
 	directory = *
 	directory = *
 	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
+	directory = *
 
 [includeIf "gitdir:/home/nathan/projects/perso/"]
   path = ~/.gitconfig.github
@@ -119,5 +146,13 @@
   path = ~/.gitconfig.github
 
 
+[includeIf "gitdir:/home/nathan/projects/gitlab-pci/"]
+  path = ~/.gitconfig.gitlab-pci
+
+
+[includeIf "gitdir:/home/nathan/projects/k8s/common-tooling/"]
+  path = ~/.gitconfig.github
+
 [includeIf "gitdir:/home/nathan/.local/share/chezmoi/"]
   path = ~/.gitconfig.github
+
