@@ -5,10 +5,18 @@ require("catppuccin").setup({
     dark = "mocha",
   },
   transparent_background = true,
+  float = {
+    transparent = true, -- enable transparent floating windows
+    solid = false, -- use solid styling for floating windows, see |winborder|
+  },
   show_end_of_buffer = false, -- show the '~' characters after the end of buffers
   term_colors = false,
   no_italic = false, -- Force no italic
   no_bold = false, -- Force no bold
+  -- custom_highlights = {
+  --   NormalFloat = { bg = "none" },
+  --   TelescopeBorder = { bg = "none"}
+  -- },
   styles = {
     comments = { "italic" },
     conditionals = { "italic" },

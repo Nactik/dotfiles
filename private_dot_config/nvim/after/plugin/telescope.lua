@@ -1,5 +1,7 @@
 local builtin = require('telescope.builtin')
 
+vim.o.winblend = 0
+
 -- Basic Telescope stuff
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { })
 vim.keymap.set('n', '<leader>st', builtin.live_grep, {})
