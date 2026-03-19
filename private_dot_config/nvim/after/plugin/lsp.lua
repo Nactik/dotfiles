@@ -54,7 +54,7 @@ require("mason-lspconfig").setup {
       "terraformls",
       "yamlls"
     },
-}
+  }
 
 
 vim.diagnostic.config({

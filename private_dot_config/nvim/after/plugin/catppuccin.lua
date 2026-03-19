@@ -13,10 +13,12 @@ require("catppuccin").setup({
   term_colors = false,
   no_italic = false, -- Force no italic
   no_bold = false, -- Force no bold
-  -- custom_highlights = {
-  --   NormalFloat = { bg = "none" },
-  --   TelescopeBorder = { bg = "none"}
-  -- },
+  custom_highlights = function(colors)
+    return {
+      LineNr = { fg = colors.overlay0 },
+      -- CursorLineNr = { fg = colors.flamingo },
+    }
+  end,
   styles = {
     comments = { "italic" },
     conditionals = { "italic" },
