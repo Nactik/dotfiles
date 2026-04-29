@@ -109,12 +109,12 @@ alias mk="minikube"
 alias k="kubectl"
 alias w="watch -n 0.5"
 alias wk="watch -n 0.5 kubectl"
-alias istioctl="~/istio-1.22.1/bin/istioctl"
 alias giphon="python3 -m giphon siphon --output ~/projects --fetch-repositories --save-ci-variables --namespace"
 alias ktest="kubectl netshoot run tmp-shell"
+alias cidr="ipcalc"
 
 ##### Prompt #####
-EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🐟 🚀)
+EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🪿 🦎)
 
 #function random_emoji {
 #        echo ${emojiArray[$RANDOM % ${#emojiArray[@]}]}
@@ -124,6 +124,27 @@ function get_admin_password {
   kubectl get secret project-environment -o yaml | yq '.data.PROJECT_CONFIG' | base64 -d | yq '.authentication.inhouse.administrator.password' | xclip -sel clipboard
 }
 
+function bridge_asterix() {
+  ENV=$1
+  PORT=$2
+
+  gcloud compute ssh shared-platforms-bastion \
+    --zone europe-west1-b \
+    --project heka-asterix-${ENV} \
+    --ssh-key-expire-after 30s \
+    -- -N -p 22 -L "0.0.0.0:${PORT:-2345}:localhost:5432"
+}
+
+function bridge_crmana() {
+  ENV=$1
+  PORT=$2
+
+  gcloud compute ssh crmana-bastion \
+    --zone europe-west1-b \
+    --project heka-asterix-${ENV} \
+    --ssh-key-expire-after 30s \
+    -- -N -p 22 -L "0.0.0.0:${PORT:-2345}:localhost:5432"
+}
 
 function archive-buckets() {
   (gsutil label get gs://heka-$2-$1-backups | grep -q archived_since) && echo "Bucket is already labelled" || gsutil label ch -l archived_since:$(date +%s) gs://heka-$2-$1-backups
@@ -159,6 +180,14 @@ function get_pod_on_node_label() {
   done
 }
 
+function delete_multipart() {
+  platform=$1
+  env=$2
+  bucket=heka-$env-$platform-backups
+
+  aws s3api list-multipart-uploads --bucket $bucket --profile obelix-$env | jq '.Uploads[].UploadId' | xargs -I {} aws s3api abort-multipart-upload --bucket $bucket --profile obelix-$env --key $platform.dump --upload-id {}
+}
+
 PROMPT="%B%{$fg[green]%}%n%f %{$fg[yellow]%}@%f %{$fg[blue]%}%~%f \${EMOJI[RANDOM%${#EMOJI[@]} + 1]}%b "
 
 export NVM_DIR="$HOME/.nvm"
@@ -173,9 +202,24 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Created by `pipx` on 2024-01-22 14:55:10
 export PATH="$PATH:/home/nathan/.local/bin"
+export CI_API_V4_URL="https://git.sia-partners.com/api/v4"
 export GITLAB_URL="https://git.sia-partners.com"
 export GITLAB_URI=${GITLAB_URL}
 export GITLAB_USERNAME="nathan.capiaux"
 
 # add Pulumi to the PATH
 export PATH=$PATH:/home/nathan/.pulumi/bin
+export PATH=$HOME/.istioctl/bin:$PATH
+
+[[ -s "/home/nathan/.gvm/scripts/gvm" ]] && source "/home/nathan/.gvm/scripts/gvm"
+
+# opencode
+export PATH=/home/nathan/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/home/nathan/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
