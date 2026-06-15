@@ -113,6 +113,7 @@ alias giphon="python3 -m giphon siphon --output ~/projects --fetch-repositories 
 alias ktest="kubectl netshoot run tmp-shell"
 alias cidr="ipcalc"
 
+
 ##### Prompt #####
 EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🪿 🦎)
 
@@ -199,6 +200,11 @@ export PATH=$PATH:/usr/local/bin
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export KUBE_EDITOR="nvim"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+##### Completion scripts #####
+# helm
+source <(helm completion zsh)
+#############################
 
 # Created by `pipx` on 2024-01-22 14:55:10
 export PATH="$PATH:/home/nathan/.local/bin"
