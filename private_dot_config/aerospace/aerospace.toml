@@ -1,0 +1,100 @@
+after-startup-command = [
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff303446 width=4.0',
+  #  'exec-and-forget sketchybar'
+]
+
+#exec-on-workspace-change = ['/bin/bash', '-c',
+#    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+#]
+
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+
+default-root-container-layout = 'tiles'
+
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+automatically-unhide-macos-hidden-apps = true
+
+[key-mapping]
+    preset = 'qwerty'
+
+[gaps]
+    inner.horizontal = 10
+    inner.vertical =   10
+    outer.left =       10
+    outer.bottom =     10
+    outer.top =        10
+    outer.right =      10
+
+[mode.main.binding]
+    # NOTE: Handled by karabiner until aerospace can
+    # differentiate between left and right modifyers
+    # alt-h = 'focus left'
+    # alt-j = 'focus down'
+    # alt-k = 'focus up'
+    # alt-l = 'focus right'
+
+    # alt-shift-h = 'move left'
+    # alt-shift-j = 'move down'
+    # alt-shift-k = 'move up'
+    # alt-shift-l = 'move right'
+
+    # alt-1 = 'workspace 1'
+    # alt-2 = 'workspace 2'
+    # alt-3 = 'workspace 3'
+    # alt-4 = 'workspace 4'
+    # alt-5 = 'workspace 5'
+    # alt-6 = 'workspace 6'
+    # alt-7 = 'workspace 7'
+    # alt-8 = 'workspace 8'
+    # alt-9 = 'workspace 9'
+
+    # alt-shift-1 = 'move-node-to-workspace 1'
+    # alt-shift-2 = 'move-node-to-workspace 2'
+    # alt-shift-3 = 'move-node-to-workspace 3'
+    # alt-shift-4 = 'move-node-to-workspace 4'
+    # alt-shift-5 = 'move-node-to-workspace 5'
+    # alt-shift-6 = 'move-node-to-workspace 6'
+    # alt-shift-7 = 'move-node-to-workspace 7'
+    # alt-shift-8 = 'move-node-to-workspace 8'
+    # alt-shift-9 = 'move-node-to-workspace 9'
+
+    # alt-shift-tab = 'move-workspace-to-monitor --wrap-around prev'
+
+    # Custom keybinds
+    # alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty msg create-window'
+    alt-enter = 'exec-and-forget open -n /Applications/Alacritty.app'
+    # alt-f = 'fullscreen --no-outer-gaps'
+    # alt-shift-f = 'macos-native-fullscreen'
+    # alt-shift-c = 'close'
+    # alt-shift-r = 'reload-config'
+    # alt-b =  ['join-with left']
+
+    # Spotlight bind is done inside MacOs shortcuts directly
+
+[workspace-to-monitor-force-assignment]
+    1 = ['main', 'main']
+    2 = ['main', 'main']
+    3 = ['main', 'main']
+    4 = ['main', 'main']
+    5 = ['main', 'main']
+    6 = ['secondary', 'main']
+    7 = ['secondary', 'main']
+    8 = ['secondary', 'main']
+    9 = ['secondary', 'main']
+
+[[on-window-detected]]
+    if.app-id = 'company.thebrowser.Browser'
+    run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = 'layout floating'
