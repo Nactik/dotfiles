@@ -13,6 +13,7 @@ window:
     x: 10
     y: 10
   opacity: 0.85 # managed by Picom
+  decorations: "buttonless"
 
 scrolling:
   history: 10000
@@ -21,7 +22,7 @@ scrolling:
 font:
   normal:
     family: Hack Nerd Font Mono
-    style: Medium
+    style: Regular
   bold:
     family: Hack Nerd Font Mono
     style: Bold
@@ -31,5 +32,5 @@ font:
   bold_italic:
     family: Hack Nerd Font Mono
     style: BoldItalic
-  size: 7
+  size: 10
 draw_bold_text_with_bright_colors: true
