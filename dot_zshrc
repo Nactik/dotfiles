@@ -113,81 +113,8 @@ alias giphon="python3 -m giphon siphon --output ~/projects --fetch-repositories 
 alias ktest="kubectl netshoot run tmp-shell"
 alias cidr="ipcalc"
 
-
 ##### Prompt #####
 EMOJI=(🐧 🦒 🦆 🐝 🐤 🐢 🐸 🦀 🦕 🦔 🐬 🐞 🪿 🦎)
-
-#function random_emoji {
-#        echo ${emojiArray[$RANDOM % ${#emojiArray[@]}]}
-#}
-#
-function get_admin_password {
-  kubectl get secret project-environment -o yaml | yq '.data.PROJECT_CONFIG' | base64 -d | yq '.authentication.inhouse.administrator.password' | xclip -sel clipboard
-}
-
-function bridge_asterix() {
-  ENV=$1
-  PORT=$2
-
-  gcloud compute ssh shared-platforms-bastion \
-    --zone europe-west1-b \
-    --project heka-asterix-${ENV} \
-    --ssh-key-expire-after 30s \
-    -- -N -p 22 -L "0.0.0.0:${PORT:-2345}:localhost:5432"
-}
-
-function bridge_crmana() {
-  ENV=$1
-  PORT=$2
-
-  gcloud compute ssh crmana-bastion \
-    --zone europe-west1-b \
-    --project heka-asterix-${ENV} \
-    --ssh-key-expire-after 30s \
-    -- -N -p 22 -L "0.0.0.0:${PORT:-2345}:localhost:5432"
-}
-
-function archive-buckets() {
-  (gsutil label get gs://heka-$2-$1-backups | grep -q archived_since) && echo "Bucket is already labelled" || gsutil label ch -l archived_since:$(date +%s) gs://heka-$2-$1-backups
-  (gsutil label get gs://heka-$2-$1-storage | grep -q archived_since) && echo "Bucket is already labelled" || gsutil label ch -l archived_since:$(date +%s) gs://heka-$2-$1-storage
-
-  echo -e "\033[1;36mlatest backups by date:"
-  gsutil ls -lah gs://heka-$2-$1-backups/ | sort -k 2
-  echo -e "\033[0m\n\n"
-
-  echo "Changing default storage class"
-  gsutil defstorageclass set ARCHIVE gs://heka-$2-$1-backups
-  gsutil defstorageclass set ARCHIVE gs://heka-$2-$1-storage
-
-  echo "Archiving all files..."
-  gsutil -m rewrite -Ors ARCHIVE "gs://heka-$2-$1-storage/"
-  gsutil -m rewrite -Ors ARCHIVE "gs://heka-$2-$1-backups/"
-
-  echo "Removing users from $2-$1-backups Bucket's permission..."
-  users=$(gsutil iam get gs://heka-$2-$1-backups  | jq -r '.bindings[].members[] ' | sort | uniq | grep "user:")
-  echo "${users}"
-  echo "${users}" | xargs -r -I % gsutil iam ch -d % gs://heka-$2-$1-backups
-  echo "Removing users from $2-$1-storage Bucket's permission..."
-  users=$(gsutil iam get gs://heka-$2-$1-storage  | jq -r '.bindings[].members[] ' | sort | uniq | grep "user:")
-  echo "${users}"
-  echo "${users}" | xargs -r -I % gsutil iam ch -d % gs://heka-$2-$1-storage
-}
-
-function get_pod_on_node_label() {
-  nodes=$(kubectl get node -l $1 --no-headers | awk '{print $1}')
-  for node ($nodes)
-  do
-    echo $(kubectl get pods -A --template "{{range .items}}{{if eq .spec.nodeName \"$node\"}}{{.spec.nodeName}} - {{.metadata.namespace}} - {{.metadata.name}}{{\"\\\n\"}}{{end}}{{end}}")
-  done
-}
-
-function delete_multipart() {
-  platform=$1
-  env=$2
-  bucket=heka-$env-$platform-backups
-
-  aws s3api list-multipart-uploads --bucket $bucket --profile obelix-$env | jq '.Uploads[].UploadId' | xargs -I {} aws s3api abort-multipart-upload --bucket $bucket --profile obelix-$env --key $platform.dump --upload-id {}
-}
 
 PROMPT="%B%{$fg[green]%}%n%f %{$fg[yellow]%}@%f %{$fg[blue]%}%~%f \${EMOJI[RANDOM%${#EMOJI[@]} + 1]}%b "
 
@@ -199,31 +126,21 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/bin
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export KUBE_EDITOR="nvim"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-##### Completion scripts #####
-# helm
-source <(helm completion zsh)
-#############################
 
 # Created by `pipx` on 2024-01-22 14:55:10
-export PATH="$PATH:/home/nathan/.local/bin"
-export CI_API_V4_URL="https://git.sia-partners.com/api/v4"
-export GITLAB_URL="https://git.sia-partners.com"
-export GITLAB_URI=${GITLAB_URL}
-export GITLAB_USERNAME="nathan.capiaux"
+export PATH="$PATH:/Users/nathancapiaux/.local/bin"
 
 # add Pulumi to the PATH
-export PATH=$PATH:/home/nathan/.pulumi/bin
+export PATH=$PATH:/Users/nathancapiaux/.pulumi/bin
 export PATH=$HOME/.istioctl/bin:$PATH
 
-[[ -s "/home/nathan/.gvm/scripts/gvm" ]] && source "/home/nathan/.gvm/scripts/gvm"
+[[ -s "/Users/nathancapiaux/.gvm/scripts/gvm" ]] && source "/Users/nathancapiaux/.gvm/scripts/gvm"
 
 # opencode
-export PATH=/home/nathan/.opencode/bin:$PATH
+export PATH=/Users/nathancapiaux/.opencode/bin:$PATH
 
 # pnpm
-export PNPM_HOME="/home/nathan/.local/share/pnpm"
+export PNPM_HOME="/Users/nathancapiaux/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

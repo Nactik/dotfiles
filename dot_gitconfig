@@ -1,10 +1,10 @@
 [user]
-	name = Nathan Capiaux
-  email = nathan.capiaux@sia-partners.com
-  signingkey = /home/nathan/.ssh/gitlab-signin-key.pub
+	name = Nactik 
+  email = capiauxnathan@gmail.com 
+  signingkey = /Users/nathancapiaux/.ssh/github-signin-key.pub
 
 [gpg]
-  format = ssh
+	format = ssh
 
 [commit]
   gpgsign = true
@@ -110,49 +110,6 @@
 	directory = *
 	directory = *
 	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
-	directory = *
 
-[includeIf "gitdir:/home/nathan/projects/perso/"]
-  path = ~/.gitconfig.github
-
-
-[includeIf "gitdir:/home/nathan/projects/github/"]
-  path = ~/.gitconfig.github
-
-
-[includeIf "gitdir:/home/nathan/projects/gitlab-pci/"]
-  path = ~/.gitconfig.gitlab-pci
-
-
-[includeIf "gitdir:/home/nathan/projects/k8s/common-tooling/"]
-  path = ~/.gitconfig.github
-
-[includeIf "gitdir:/home/nathan/.local/share/chezmoi/"]
-  path = ~/.gitconfig.github
-
+# [includeIf "gitdir:/Users/nathancapiaux/projects/perso/"]
+#   path = ~/.gitconfig.github
