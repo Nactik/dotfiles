@@ -4,7 +4,7 @@ local Terminal  = require('toggleterm.terminal').Terminal
 toggleterm.setup({
    -- size can be a number or function which is passed the current terminal
   size = 50,
-  open_mapping = [[<C-\>]],
+  open_mapping = [[<C-t>]],
   hide_number = true,
   shade_filetypes = {},
   shade_terminals = true,

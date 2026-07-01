@@ -23,15 +23,6 @@
 -- lsp.nvim_workspace()
 -- lsp.setup()
 --
-vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  update_in_insert = false,
-  underline = true,
-  severity_sort = false,
-  float = true,
-})
-
 require("mason").setup()
 
 require("mason-lspconfig").setup {
@@ -54,7 +45,7 @@ require("mason-lspconfig").setup {
       "terraformls",
       "yamlls"
     },
-  }
+}
 
 
 vim.diagnostic.config({
@@ -63,6 +54,7 @@ vim.diagnostic.config({
   update_in_insert = false,
   underline = true,
   severity_sort = false,
+  float = true,
   -- float = {
   --   scope = 'c',
   --   border = {'╔','═','╗','║','╝','═','╚','║'},

@@ -27,6 +27,7 @@ return {
     keymap = {
       preset = 'default',
       ['<CR>'] = {'accept', 'fallback'},
+      ['esc'] = {'hide'}
     },
 
     fuzzy = { implementation = "rust" },
