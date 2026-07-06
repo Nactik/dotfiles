@@ -1,5 +1,5 @@
 after-startup-command = [
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff303446 width=4.0',
+  'exec-and-forget borders',
   #  'exec-and-forget sketchybar'
 ]
 
@@ -75,7 +75,7 @@ automatically-unhide-macos-hidden-apps = true
     # alt-f = 'fullscreen --no-outer-gaps'
     # alt-shift-f = 'macos-native-fullscreen'
     # alt-shift-c = 'close'
-    # alt-shift-r = 'reload-config'
+    # alt-shift-r = 'reload-q'
     # alt-b =  ['join-with left']
 
     # Spotlight bind is done inside MacOs shortcuts directly
