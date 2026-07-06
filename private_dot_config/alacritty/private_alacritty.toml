@@ -7,7 +7,7 @@ WINIT_X11_SCALE_FACTOR = "1.6"
 
 
 [font]
-size = 9
+size = 10 # Can also be 9 if shitty monitor
 
 [font.bold]
 family = "Hack Nerd Font Mono"
