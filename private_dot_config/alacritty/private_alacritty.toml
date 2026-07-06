@@ -1,5 +1,3 @@
-import = ["/home/nathan/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
-
 [colors]
 draw_bold_text_with_bright_colors = true
 
@@ -9,7 +7,7 @@ WINIT_X11_SCALE_FACTOR = "1.6"
 
 
 [font]
-size = 6
+size = 9
 
 [font.bold]
 family = "Hack Nerd Font Mono"
@@ -25,7 +23,7 @@ style = "MediumItalic"
 
 [font.normal]
 family = "Hack Nerd Font Mono"
-style = "Medium"
+style = "Regular"
 
 [scrolling]
 history = 10000
@@ -33,7 +31,12 @@ multiplier = 4
 
 [window]
 opacity = 0.85
+decorations = "buttonless"
 
 [window.padding]
 x = 6
 y = 6
+
+
+[general]
+import = ["/Users/nathan.capiaux/.config/alacritty/catppuccin-mocha.toml"]
