@@ -1,28 +1,3 @@
--- lsp.preset('recommended')
---
--- lsp.ensure_installed({
---     "bashls",
---     "clangd",
---     "cmake",
---     "cssls",
---     "dockerls",
---     "docker_compose_language_service",
---     "emmet_ls",
---     "html",
---     "jsonls",
---     "jdtls",
---     "ts_ls",
---     "lua_ls",
---     "marksman",
---     "rust_analyzer",
---     "tailwindcss",
---     "terraformls",
---     "yamlls"
--- })
---
--- lsp.nvim_workspace()
--- lsp.setup()
---
 require("mason").setup()
 
 require("mason-lspconfig").setup {
@@ -43,7 +18,8 @@ require("mason-lspconfig").setup {
       "rust_analyzer",
       "tailwindcss",
       "terraformls",
-      "yamlls"
+      "yamlls",
+      "pylsp"
     },
 }
 
@@ -61,3 +37,5 @@ vim.diagnostic.config({
   --   source = true
   -- }
 })
+
+vim.lsp.enable('gopls')
