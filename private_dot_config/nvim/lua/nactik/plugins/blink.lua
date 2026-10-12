@@ -27,7 +27,6 @@ return {
     keymap = {
       preset = 'default',
       ['<CR>'] = {'accept', 'fallback'},
-      ['esc'] = {'hide'}
     },
 
     fuzzy = { implementation = "rust" },
@@ -40,6 +39,9 @@ return {
 
     -- (Default) Only show the documentation popup when manually triggered
     completion = {
+      trigger = {
+        show_on_blocked_trigger_characters = { ':' },
+      },
       menu = { border = 'rounded', draw = { columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } }, }
     },
       documentation = { window = { border = 'rounded' }, auto_show = true },
